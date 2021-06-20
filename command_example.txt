@@ -1,0 +1,19 @@
+python feature_extractor_vid.py -l 6 -i C:/deep/Pytorch_C3D_Feature_Extractor/data/videos/ -o C:/deep/Pytorch_C3D_Feature_Extractor/data/c3d_features -gpu -id 0 -p C:/deep/Pytorch_C3D_Feature_Extractor/data/video_list.txt --OUTPUT_NAME c3d_fc6_features.hdf5
+
+C:\deep\Pytorch_C3D_Feature_Extractor>python feature_extractor_vid.py -l 6 -i C:/deep/Pytorch_C3D_Feature_Extractor/data -o C:/deep/Pytorch_C3D_Feature_Extractor/data/c3d_features -gpu -id 0 -p C:/deep/Pytorch_C3D_Feature_Extractor/video_list.txt --OUTPUT_NAME c3d_fc6_features.hdf5 -b 4
+
+python TrainingAnomalyDetector_public.py --features_path "C:\deep\Pytorch_C3D_Feature_Extractor\c3d_features" --annotation_path "C:\deep\Pytorch_C3D_Feature_Extractor\Train_Annotation.txt"
+
+python generate_ROC.py --features_path "C:\deep\Pytorch_C3D_Feature_Extractor\c3d_features" --annotation_path "C:\deep\Pytorch_C3D_Feature_Extractor\Test_Annotation.txt"
+
+python generate_ROC.py --features_path "C:\deep\Pytorch_C3D_Feature_Extractor\c3d_features" --annotation_path "C:\deep\Pytorch_C3D_Feature_Extractor\Test_Annotation.txt" --model_path "C:\deep\Pytorch_C3D_Feature_Extractor\exps\models\epoch_20000.pt"
+
+
+#######i3d########
+python TrainingAnomalyDetector_public.py --features_path "C:\deep\Pytorch_C3D_Feature_Extractor\i3d_features" --annotation_path "C:\deep\Pytorch_C3D_Feature_Extractor\Train_Annotation.txt" --extractor_type "i3d" --feature_dim 1024
+
+python generate_ROC.py --features_path "C:\deep\Pytorch_C3D_Feature_Extractor\i3d_features" --extractor_type "i3d" --annotation_path "C:\deep\Pytorch_C3D_Feature_Extractor\Test_Annotation.txt" --model_path ""C:\deep\Pytorch_C3D_Feature_Extractor\exps\models\epoch_20000.pt"
+
+
+####optical flow#####
+python optical_feature_extractor_vid.py -l 6 -i C:/deep/Pytorch_C3D_Feature_Extractor/videos/ -o C:/deep/Pytorch_C3D_Feature_Extractor/flow_c3d_features -gpu -id 0 -p C:/deep/Pytorch_C3D_Feature_Extractor/All_Annotation.txt --OUTPUT_NAME flow_c3d_fc6_features.hdf5 -b 4
