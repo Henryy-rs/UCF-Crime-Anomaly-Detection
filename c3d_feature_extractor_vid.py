@@ -15,7 +15,7 @@ import PIL.Image as Image
 import skimage.io as io
 import h5py
 from PIL import Image
-from get_frame_gpu import RgbByFrame
+from get_rgb_frame import RGBFrame
 
 
 def feature_extractor():
@@ -26,7 +26,7 @@ def feature_extractor():
 	if RUN_GPU : 
 		net.cuda(0)
 		net.eval()
-		print('net', net)
+		#print('net', net)
 	feature_dim = 4096 if EXTRACTED_LAYER != 5 else 8192
 
 	# read video list from the txt list
@@ -40,7 +40,7 @@ def feature_extractor():
 		os.mkdir(OUTPUT_DIR)
 	f = h5py.File(os.path.join(OUTPUT_DIR, OUTPUT_NAME), 'a')
 
-	frame = RgbByFrame()
+	frame = RGBFrame()
 
 	error_fid = open('error.txt', 'w')
 	for video_name in video_list: 
@@ -139,6 +139,8 @@ if __name__ == "__main__":
 	OUTPUT_NAME = params['OUTPUT_NAME']
 	BATCH_SIZE = params['BATCH_SIZE']
 	BATCH_SIZE = int(BATCH_SIZE) 	#added
+	nb_frames = 16
 	feature_extractor()
+	
 
 
